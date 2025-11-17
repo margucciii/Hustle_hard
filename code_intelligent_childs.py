@@ -4,12 +4,14 @@ IQ_results = {"verbal_reasoning": 0, "logical": 0, "mathematical": 0, "spatial":
 #Detect and clasify their Giftedness based on their results
 
 def calculation(dct):
-    result = "The student is gifted in:"
+    result = "The student is gifted in: "
     cont = 0
     creativity_exam = False
     for key, value in dct.items():
         if value >= 75:                                         #Analyse item by item to check if the student is gifted
-            result += " " + key
+            if cont != 0:
+                result += ", "
+            result += key
             cont += 1
             if key == "cretive":                                #Special clause for creativity (only if gifted in creativity, might be creatively gifted)
                 creativity_exam = True
@@ -20,6 +22,8 @@ def calculation(dct):
         if not creativity_exam:
             print("The student is Intellectually Gifted")       #If gifted in 4 areas but not creativity, they are intellectually gifted
     else:
+        if cont >= 3:
+            result += ". Flexibility recommended."              #If gifted in more than 3 areas recommend flexibility (Able to skip 1 or more grades)
         print(result)
 
 
@@ -36,6 +40,6 @@ creative = float(input("What is your creative mark? "))
 IQ_results ["creative"] = creative
 print("Thanks, now your results are being calculated.")
 
-#Use the function
+#Use the function with the inputs
 
 calculation(IQ_results)
